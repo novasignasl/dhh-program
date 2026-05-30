@@ -1,3 +1,7 @@
+.asl-player{
+  border:10px solid red !important;
+}
+
 .asl-player #signToggle.sign-toggle{
   display:block !important;
   margin-top:14px !important;

@@ -1,3 +1,5 @@
+alert("GitHub JS Loaded");
+
 (function () {
   const dataEl = document.getElementById("lessonData");
   const iframe = document.getElementById("vimeo-player");
