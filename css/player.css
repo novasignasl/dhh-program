@@ -1,54 +1,146 @@
+:root{
+  --navy:#1e3a8a;
+  --navy-light:#eff6ff;
+  --border:#cbd5e1;
+}
+
 .asl-player{
-  border:10px solid yellow !important;
+  box-sizing:border-box;
+  border:2px solid var(--navy);
+  border-radius:16px;
+  padding:16px;
+  background:#eff6ff;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-.asl-player #signToggle.sign-toggle{
-  display:block !important;
-  margin-top:14px !important;
-  width:100% !important;
-  padding:12px 16px !important;
-  border:5px solid !important;
-  border-radius:12px !important;
-  background:#ffffff !important;
-  color:#1e3a8a !important;
-  font-weight:700 !important;
-  cursor:pointer !important;
-  text-align:center !important;
+.asl-player *{
+  box-sizing:border-box;
 }
 
-.asl-player #signChips.sign-chips{
-  display:flex !important;
-  flex-wrap:wrap !important;
-  gap:10px !important;
-  margin-top:12px !important;
-  padding:12px !important;
-  background:#ffffff !important;
-  border:1px solid #dbeafe !important;
-  border-radius:14px !important;
+.chapter-status{
+  padding:12px 16px;
+  background:#f8fbff;
+  border:1px solid #bfdbfe;
+  border-radius:10px;
+  font-size:16px;
+  font-weight:600;
+  margin-bottom:10px;
 }
 
-.asl-player #signChips.sign-chips.collapsed{
-  display:none !important;
+.chapter-status strong{
+  color:var(--navy);
 }
 
-.asl-player .sign-chip{
-  display:inline-flex !important;
-  align-items:center !important;
-  gap:6px !important;
-  padding:9px 14px !important;
-  border:1px solid #cbd5e1 !important;
-  border-radius:999px !important;
-  background:#f8fafc !important;
-  color:#0f172a !important;
-  cursor:pointer !important;
-  font-size:14px !important;
-  line-height:1.2 !important;
-  white-space:nowrap !important;
-  appearance:none !important;
+.speed-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
 }
 
-.asl-player .sign-chip.active{
-  background:#1e3a8a !important;
-  color:#ffffff !important;
-  border-color:#1e3a8a !important;
+.speed-label{
+  font-weight:600;
+  color:#334155;
+}
+
+.speed-pills{
+  display:flex;
+  gap:6px;
+  padding:4px;
+  background:#f1f5f9;
+  border-radius:999px;
+  flex-wrap:wrap;
+}
+
+.speed-btn{
+  border:0;
+  border-radius:999px;
+  padding:8px 14px;
+  background:transparent;
+  color:#0f172a;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:600;
+}
+
+.speed-btn.active{
+  background:var(--navy);
+  color:#fff;
+}
+
+.video-wrapper{
+  position:relative;
+  width:100%;
+  aspect-ratio:16 / 9;
+  border-radius:12px;
+  overflow:hidden;
+  background:#000;
+}
+
+.video-wrapper iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+.signs-toggle{
+  display:block;
+  width:100%;
+  margin-top:14px;
+  padding:12px 16px;
+  border:2px solid var(--navy);
+  border-radius:12px;
+  background:#fff;
+  color:var(--navy);
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+  text-align:center;
+}
+
+.signs-panel{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  width:100%;
+  margin-top:12px;
+  padding:12px;
+  background:#fff;
+  border:1px solid #bfdbfe;
+  border-radius:14px;
+}
+
+.signs-panel.is-hidden{
+  display:none;
+}
+
+.sign-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding:9px 14px;
+  border:2px solid var(--border);
+  border-radius:999px;
+  background:#f8fafc;
+  color:#0f172a;
+  font-size:14px;
+  font-weight:600;
+  line-height:1.2;
+  white-space:nowrap;
+  cursor:pointer;
+}
+
+.sign-button:hover{
+  background:#e0ecff;
+  border-color:var(--navy);
+}
+
+.sign-button.is-active{
+  background:var(--navy);
+  color:#fff;
+  border-color:var(--navy);
 }
