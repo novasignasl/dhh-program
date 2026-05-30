@@ -1,65 +1,60 @@
-// js/player.js
 (function () {
-  const lessonDataEl = document.getElementById("lessonData");
+  const dataEl = document.getElementById("lessonData");
   const iframe = document.getElementById("vimeo-player");
-  const playerRoot = document.querySelector(".asl-player");
 
-  if (!lessonDataEl || !iframe || !playerRoot || typeof Vimeo === "undefined") {
-    console.log("Missing lessonData, vimeo-player, asl-player, or Vimeo API.");
+  if (!dataEl || !iframe || typeof Vimeo === "undefined") {
+    console.log("Missing lesson data, Vimeo iframe, or Vimeo API.");
     return;
   }
 
-  const lessonData = JSON.parse(lessonDataEl.textContent);
+  const lessonData = JSON.parse(dataEl.textContent);
   const signs = lessonData.signs || [];
 
   const player = new Vimeo.Player(iframe);
-  let selectedSpeed = 1;
-
-  const firstLabel = signs[0]?.label || signs[0]?.chip || "";
-
-  const topUI = document.createElement("div");
-  topUI.innerHTML = `
-    <div class="chapter-status" aria-live="polite">
-      Now Practicing:
-      <strong id="currentSign">${firstLabel}</strong>
-    </div>
-
-    <div class="speed-row">
-      <span class="speed-label">Practice Speed:</span>
-      <div class="speed-pills">
-        <button type="button" class="speed-btn" data-speed="0.5">Slow</button>
-        <button type="button" class="speed-btn" data-speed="0.75">Med</button>
-        <button type="button" class="speed-btn active" data-speed="1">Normal</button>
-        <button type="button" class="speed-btn" data-speed="1.25">Fast</button>
-      </div>
-    </div>
-  `;
-
-  const bottomUI = document.createElement("div");
-  bottomUI.innerHTML = `
-    <button
-      type="button"
-      class="sign-toggle"
-      id="signToggle"
-      aria-expanded="false">
-      Show Signs (${signs.length}) ▼
-    </button>
-
-    <div class="sign-chips collapsed" id="signChips"></div>
-  `;
-
-  playerRoot.insertBefore(topUI, iframe);
-  playerRoot.appendChild(bottomUI);
 
   const currentSign = document.getElementById("currentSign");
-  const signToggle = document.getElementById("signToggle");
   const signChips = document.getElementById("signChips");
+  const signToggle = document.getElementById("signToggle");
   const speedButtons = document.querySelectorAll(".speed-btn");
+
+  let selectedSpeed = 1;
+
+  if (signs.length > 0) {
+    currentSign.textContent = signs[0].label || signs[0].chip;
+    signToggle.textContent = `Show Signs (${signs.length}) ▼`;
+  }
+
+  signs.forEach((sign, index) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "sign-chip";
+    btn.textContent = `${sign.icon || ""} ${sign.chip || sign.label}`;
+
+    if (index === 0) btn.classList.add("active");
+
+    btn.addEventListener("click", function () {
+      player.setPlaybackRate(selectedSpeed).catch(function () {});
+
+      player.setCurrentTime(sign.time)
+        .then(function () {
+          return player.play();
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+
+      setActiveSign(index);
+    });
+
+    signChips.appendChild(btn);
+  });
 
   function setActiveSign(index) {
     const chips = document.querySelectorAll(".sign-chip");
 
-    chips.forEach(chip => chip.classList.remove("active"));
+    chips.forEach(function (chip) {
+      chip.classList.remove("active");
+    });
 
     if (chips[index]) {
       chips[index].classList.add("active");
@@ -67,50 +62,31 @@
     }
   }
 
-  signs.forEach((sign, index) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "sign-chip";
-    button.innerHTML = `${sign.icon || ""} ${sign.chip || sign.label}`;
+  signToggle.addEventListener("click", function () {
+    const collapsed = signChips.classList.toggle("collapsed");
 
-    if (index === 0) {
-      button.classList.add("active");
-    }
+    signToggle.setAttribute("aria-expanded", String(!collapsed));
 
-    button.addEventListener("click", () => {
-      player.setPlaybackRate(selectedSpeed).catch(() => {});
-
-      player.setCurrentTime(sign.time)
-        .then(() => player.play());
-
-      setActiveSign(index);
-    });
-
-    signChips.appendChild(button);
-  });
-
-  signToggle.addEventListener("click", () => {
-    const isCollapsed = signChips.classList.toggle("collapsed");
-
-    signToggle.setAttribute("aria-expanded", !isCollapsed);
-
-    signToggle.textContent = isCollapsed
+    signToggle.textContent = collapsed
       ? `Show Signs (${signs.length}) ▼`
       : `Hide Signs (${signs.length}) ▲`;
   });
 
-  speedButtons.forEach(button => {
-    button.addEventListener("click", () => {
+  speedButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
       selectedSpeed = parseFloat(button.dataset.speed);
 
-      speedButtons.forEach(btn => btn.classList.remove("active"));
+      speedButtons.forEach(function (btn) {
+        btn.classList.remove("active");
+      });
+
       button.classList.add("active");
 
-      player.setPlaybackRate(selectedSpeed).catch(() => {});
+      player.setPlaybackRate(selectedSpeed).catch(function () {});
     });
   });
 
-  player.on("timeupdate", data => {
+  player.on("timeupdate", function (data) {
     let activeIndex = 0;
 
     for (let i = 0; i < signs.length; i++) {
