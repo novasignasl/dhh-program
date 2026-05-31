@@ -1,4 +1,4 @@
-//test5
+//test6
 
 :root{
   --navy:#1e3a8a;
@@ -143,6 +143,6 @@
 
 .sign-button.is-active{
   background:#D3D3D3;
-  color:white;
+  color:black;
   border-color:var(--navy);
 }
