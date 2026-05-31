@@ -70,7 +70,7 @@
         </div>
         <div class="speed-pills" role="group" aria-label="Practice speed">
           <button type="button" class="speed-btn" data-speed="0.5">Slow</button>
-          <button type="button" class="speed-btn" data-speed="0.75">Med</button>
+        
           <button type="button" class="speed-btn active" data-speed="1">Normal</button>
           <button type="button" class="speed-btn" data-speed="1.25">Fast</button>
         </div>

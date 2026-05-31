@@ -183,7 +183,7 @@
 
 .speed-pills{
   display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-template-columns:repeat(3,minmax(0,1fr));
   gap:10px;
   flex:1 1 320px;
   width:100%;
@@ -203,8 +203,17 @@
   font-size:15px;
   font-weight:900;
   line-height:1.2;
-  white-space:normal;
-  overflow-wrap:anywhere;
+    /* Stops Slow / Med / Normal / Fast from wrapping */
+  white-space:nowrap;
+
+  /* Stops words from breaking in the middle */
+  overflow-wrap:normal;
+
+  /* Keeps text inside the pill */
+  overflow:hidden;
+
+  /* Adds ... only if the screen is too small */
+  text-overflow:ellipsis;
   box-shadow:0 3px 9px rgba(15,23,42,.07);
   transition:
     background .15s ease,
@@ -393,7 +402,7 @@
     flex:1 1 auto;
     width:100%;
     max-width:none;
-    grid-template-columns:repeat(4,minmax(0,1fr));
+    grid-template-columns:repeat(3,minmax(0,1fr)); /*changed from 4 to 3 to remove medium*/
   }
 }
 
@@ -418,8 +427,8 @@
 
   .speed-btn{
     width:100%;
-    font-size:14px;
-    padding:10px 8px;
+    font-size:12px;
+    padding:9px 6px;
   }
 
   .chapter-status{
