@@ -1,9 +1,10 @@
-//test9
+//test10
 
 /* NovaSign ASL lesson player */
 /* Strong gray + blue + purple theme */
 /* Improved colorful chip buttons + dynamic Now Practicing JSON icon */
 /* Clean video-only layout when a lesson has no sign chips */
+/* ThriveCart-safe speed pill layout */
 
 :root{
   --asl-gray-950:#0f172a;
@@ -41,6 +42,8 @@
 .asl-player{
   box-sizing:border-box;
   width:100%;
+  max-width:100%;
+  overflow:hidden;
   border:1px solid rgba(124,58,237,.28);
   border-radius:22px;
   padding:18px;
@@ -61,21 +64,24 @@
   display:grid;
   gap:14px;
   margin-bottom:16px;
+  width:100%;
+  max-width:100%;
 }
 
 .player-top-with-signs{
-  grid-template-columns:minmax(260px,1fr) minmax(390px,1.25fr);
+  grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);
   align-items:stretch;
 }
 
 .player-top-video-only{
-  grid-template-columns:1fr;
+  grid-template-columns:minmax(0,1fr);
 }
 
 .player-section-heading{
   display:flex;
   align-items:center;
   gap:10px;
+  min-width:0;
 }
 
 .player-icon,
@@ -113,6 +119,7 @@
   justify-content:center;
   gap:9px;
   min-height:88px;
+  min-width:0;
   padding:16px 18px;
   background:rgba(255,255,255,.94);
   border:1px solid rgba(37,99,235,.28);
@@ -135,6 +142,7 @@
   display:flex;
   align-items:center;
   gap:12px;
+  min-width:0;
 }
 
 .chapter-status strong{
@@ -142,13 +150,18 @@
   font-size:22px;
   line-height:1.2;
   font-weight:900;
+  overflow-wrap:anywhere;
 }
 
 .speed-row{
   display:flex;
+  flex-wrap:wrap;
   align-items:center;
   justify-content:space-between;
-  gap:18px;
+  gap:14px;
+  width:100%;
+  max-width:100%;
+  min-width:0;
   min-height:88px;
   padding:16px 18px;
   background:var(--asl-soft-gradient);
@@ -158,7 +171,8 @@
 }
 
 .speed-heading{
-  flex:0 0 auto;
+  flex:0 1 auto;
+  min-width:0;
 }
 
 .speed-row-only{
@@ -169,23 +183,28 @@
 
 .speed-pills{
   display:grid;
-  grid-template-columns:repeat(4,minmax(96px,1fr));
+  grid-template-columns:repeat(4,minmax(0,1fr));
   gap:10px;
+  flex:1 1 320px;
   width:100%;
   max-width:560px;
+  min-width:0;
 }
 
 .speed-btn{
+  min-width:0;
   min-height:50px;
   border:1px solid rgba(51,65,85,.24);
   border-radius:999px;
-  padding:11px 18px;
+  padding:11px 12px;
   background:#333333;
-  color:var(--asl-gray-800);
+  color:#ffffff;
   cursor:pointer;
   font-size:15px;
   font-weight:900;
   line-height:1.2;
+  white-space:normal;
+  overflow-wrap:anywhere;
   box-shadow:0 3px 9px rgba(15,23,42,.07);
   transition:
     background .15s ease,
@@ -212,13 +231,14 @@
 .speed-btn.active{
   background:var(--asl-gradient);
   border-color:transparent;
-  color:#D3D3D3;
+  color:#ffffff;
   box-shadow:0 9px 20px rgba(37,99,235,.27),0 5px 14px rgba(124,58,237,.23);
 }
 
 .video-wrapper{
   position:relative;
   width:100%;
+  max-width:100%;
   aspect-ratio:16 / 9;
   border-radius:18px;
   overflow:hidden;
@@ -271,6 +291,7 @@
   flex-wrap:wrap;
   gap:12px;
   width:100%;
+  max-width:100%;
   margin-top:13px;
   padding:16px;
   background:
@@ -305,7 +326,8 @@
   font-size:14px;
   font-weight:900;
   line-height:1.2;
-  white-space:nowrap;
+  white-space:normal;
+  overflow-wrap:anywhere;
   cursor:pointer;
   box-shadow:
     0 4px 10px rgba(15,23,42,.08),
@@ -358,11 +380,20 @@
   }
 
   .speed-row{
+    flex-direction:column;
+    align-items:stretch;
     justify-content:flex-start;
   }
 
+  .speed-heading{
+    justify-content:center;
+  }
+
   .speed-pills{
+    flex:1 1 auto;
+    width:100%;
     max-width:none;
+    grid-template-columns:repeat(4,minmax(0,1fr));
   }
 }
 
@@ -373,8 +404,8 @@
   }
 
   .speed-row{
-    flex-direction:column;
-    align-items:stretch;
+    min-height:auto;
+    padding:14px;
   }
 
   .speed-row-only{
@@ -387,10 +418,11 @@
 
   .speed-btn{
     width:100%;
+    font-size:14px;
+    padding:10px 8px;
   }
 
-  .chapter-status,
-  .speed-row{
+  .chapter-status{
     min-height:auto;
   }
 
@@ -413,5 +445,20 @@
   .sign-button{
     flex:1 1 auto;
     min-width:calc(50% - 8px);
+  }
+}
+
+@media (max-width:420px){
+  .speed-pills{
+    gap:8px;
+  }
+
+  .speed-btn{
+    min-height:46px;
+    font-size:13px;
+  }
+
+  .speed-label{
+    font-size:12px;
   }
 }
