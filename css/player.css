@@ -137,12 +137,12 @@
 }
 
 .sign-button:hover{
-  background:purple;
+  background:red;
   border-color:var(--navy);
 }
 
 .sign-button.is-active{
-  background:black;
+  background:#333333;
   color:white;
   border-color:var(--navy);
 }
