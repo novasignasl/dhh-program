@@ -180,7 +180,7 @@
   border:1px solid rgba(51,65,85,.24);
   border-radius:999px;
   padding:11px 18px;
-  background:#ffffff;
+  background:#333333;
   color:var(--asl-gray-800);
   cursor:pointer;
   font-size:15px;
@@ -196,7 +196,7 @@
 }
 
 .speed-btn:hover{
-  background:var(--asl-blue-soft);
+  background:#D3D3D3;
   border-color:rgba(37,99,235,.5);
   color:var(--asl-blue);
   transform:translateY(-1px);
@@ -212,7 +212,7 @@
 .speed-btn.active{
   background:var(--asl-gradient);
   border-color:transparent;
-  color:#ffffff;
+  color:#D3D3D3;
   box-shadow:0 9px 20px rgba(37,99,235,.27),0 5px 14px rgba(124,58,237,.23);
 }
 
