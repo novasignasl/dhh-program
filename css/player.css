@@ -1,4 +1,4 @@
-//test2
+//test3
 
 :root{
   --navy:#1e3a8a;
@@ -50,7 +50,7 @@
   display:flex;
   gap:6px;
   padding:4px;
-  background:#f1f5f9;
+  background:#333333;
   border-radius:999px;
   flex-wrap:wrap;
 }
@@ -68,7 +68,7 @@
 
 .speed-btn.active{
   background:var(--navy);
-  color:#fff;
+  color:black;
 }
 
 .video-wrapper{
@@ -137,12 +137,12 @@
 }
 
 .sign-button:hover{
-  background:yellow;
+  background:#D3D3D3;
   border-color:var(--navy);
 }
 
 .sign-button.is-active{
-  background:#333333;
+  background:black;
   color:white;
   border-color:var(--navy);
 }
