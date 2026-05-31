@@ -1,4 +1,4 @@
-//test3
+//test5
 
 :root{
   --navy:#1e3a8a;
@@ -67,7 +67,7 @@
 }
 
 .speed-btn.active{
-  background:var(--navy);
+  background:#D3D3D3;
   color:black;
 }
 
@@ -142,7 +142,7 @@
 }
 
 .sign-button.is-active{
-  background:black;
+  background:#D3D3D3;
   color:white;
   border-color:var(--navy);
 }
