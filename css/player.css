@@ -353,7 +353,7 @@
 
 .sign-button.is-active{
   background:var(--asl-chip-gradient);
-  color:#ffffff;
+  color:#000080;
   border-color:transparent;
   box-shadow:
     0 12px 24px rgba(37,99,235,.24),

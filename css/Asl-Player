@@ -1,0 +1,48 @@
+<div class="asl-player">
+
+  <div class="player-toolbar">
+    <div class="chapter-status" aria-live="polite">
+      Now Playing:
+      <strong id="currentChapter">Bathtub is Filling Up</strong>
+    </div>
+
+    <div class="speed-row">
+      <span class="speed-label">Practice Speed:</span>
+
+      <div class="speed-pills">
+        <button type="button" class="speed-btn" data-speed="0.5">Slow</button>
+        <button type="button" class="speed-btn" data-speed="0.75">Med</button>
+        <button type="button" class="speed-btn active" data-speed="1">Normal</button>
+        <button type="button" class="speed-btn" data-speed="1.25">Fast</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-wrapper">
+    <iframe
+      id="vimeo-player"
+      src="https://player.vimeo.com/video/1190358519?h=4639008b9d"
+      allow="autoplay; fullscreen; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <button
+    type="button"
+    class="chapter-toggle"
+    id="chapterToggle"
+    aria-expanded="true">
+    Hide Chapters ▲
+  </button>
+
+  <div class="chapter-chips" id="chapterChips">
+    <button class="chip active">🛁 Bathtub</button>
+    <button class="chip">🚻 Bathroom</button>
+    <button class="chip">🧼 Dirty</button>
+    <button class="chip">👕 Clothes Off</button>
+    <button class="chip">💧 Water OK?</button>
+  </div>
+
+</div>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
