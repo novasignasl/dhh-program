@@ -1,3 +1,5 @@
+//test8
+
 (function () {
   const dataEl = document.getElementById("lessonData");
   const iframe = document.getElementById("vimeo-player");
@@ -17,15 +19,33 @@
     lessonData = {};
   }
 
-  const signs = Array.isArray(lessonData.signs) ? lessonData.signs : [];
+  const originalSigns = Array.isArray(lessonData.signs) ? lessonData.signs : [];
+
+  // Sort by timestamp so "Now Practicing" follows the actual video time.
+  const signs = originalSigns
+    .filter(function (sign) {
+      return sign && sign.time !== undefined && sign.time !== null;
+    })
+    .map(function (sign) {
+      return {
+        time: Number(sign.time) || 0,
+        icon: sign.icon || "",
+        chip: sign.chip || "",
+        label: sign.label || sign.chip || "Sign"
+      };
+    })
+    .sort(function (a, b) {
+      return a.time - b.time;
+    });
+
   const hasSigns = signs.length > 0;
 
   const player = new Vimeo.Player(iframe);
   let selectedSpeed = 1;
+  let activeSignIndex = -1;
 
-  const firstSign = hasSigns
-    ? signs[0]?.label || signs[0]?.chip || ""
-    : "";
+  const firstSign = hasSigns ? signs[0].label : "";
+  const firstIcon = hasSigns ? signs[0].icon : "";
 
   const topUI = document.createElement("div");
   topUI.className = hasSigns ? "player-top player-top-with-signs" : "player-top player-top-video-only";
@@ -33,12 +53,21 @@
   topUI.innerHTML = hasSigns
     ? `
       <div class="chapter-status" aria-live="polite">
-        <span class="chapter-label">Now Practicing:</span>
-        <strong id="currentSign">${firstSign}</strong>
+        <div class="player-section-heading">
+          <span class="chapter-label">Now Practicing</span>
+        </div>
+
+        <div class="current-practice">
+          <span id="currentSignIcon" class="current-sign-icon" aria-hidden="true">${firstIcon}</span>
+          <strong id="currentSign">${firstSign}</strong>
+        </div>
       </div>
 
       <div class="speed-row">
-        <span class="speed-label">Practice Speed:</span>
+        <div class="player-section-heading speed-heading">
+          <span class="player-icon" aria-hidden="true">⚡</span>
+          <span class="speed-label">Practice Speed</span>
+        </div>
         <div class="speed-pills" role="group" aria-label="Practice speed">
           <button type="button" class="speed-btn" data-speed="0.5">Slow</button>
           <button type="button" class="speed-btn" data-speed="0.75">Med</button>
@@ -49,7 +78,10 @@
     `
     : `
       <div class="speed-row speed-row-only">
-        <span class="speed-label">Practice Speed:</span>
+        <div class="player-section-heading speed-heading">
+          <span class="player-icon" aria-hidden="true">⚡</span>
+          <span class="speed-label">Practice Speed</span>
+        </div>
         <div class="speed-pills" role="group" aria-label="Practice speed">
           <button type="button" class="speed-btn" data-speed="0.5">Slow</button>
           <button type="button" class="speed-btn" data-speed="0.75">Med</button>
@@ -69,6 +101,8 @@
   const speedButtons = playerRoot.querySelectorAll(".speed-btn");
 
   speedButtons.forEach(function (button) {
+    button.setAttribute("aria-pressed", button.classList.contains("active") ? "true" : "false");
+
     button.addEventListener("click", function () {
       selectedSpeed = parseFloat(button.dataset.speed);
 
@@ -82,12 +116,9 @@
 
       player.setPlaybackRate(selectedSpeed).catch(function () {});
     });
-
-    button.setAttribute("aria-pressed", button.classList.contains("active") ? "true" : "false");
   });
 
-  // If there are no signs/chips/chapters, stop here.
-  // The Vimeo player and speed buttons still work, but no chapter UI is shown.
+  // No chips/chapters: keep the same styled player and speed controls only.
   if (!hasSigns) {
     playerRoot.classList.add("video-only");
     return;
@@ -110,23 +141,53 @@
   playerRoot.appendChild(signsToggle);
   playerRoot.appendChild(signsPanel);
 
-  const currentSign = document.getElementById("currentSign");
+  const currentSign = playerRoot.querySelector("#currentSign");
+  const currentSignIcon = playerRoot.querySelector("#currentSignIcon");
 
-  function setActiveSign(index) {
-    const buttons = signsPanel.querySelectorAll(".sign-button");
+  function getSignText(sign) {
+    return sign.label || sign.chip || "Sign";
+  }
 
-    buttons.forEach(function (button) {
-      button.classList.remove("is-active");
-      button.setAttribute("aria-pressed", "false");
-    });
+  function getButtonText(sign) {
+    return `${sign.icon || ""} ${sign.chip || sign.label || "Sign"}`.trim();
+  }
 
-    if (buttons[index]) {
-      buttons[index].classList.add("is-active");
-      buttons[index].setAttribute("aria-pressed", "true");
+  function getActiveIndexFromSeconds(seconds) {
+    let index = 0;
+
+    for (let i = 0; i < signs.length; i++) {
+      if (seconds >= signs[i].time) {
+        index = i;
+      } else {
+        break;
+      }
     }
 
-    if (currentSign && signs[index]) {
-      currentSign.textContent = signs[index].label || signs[index].chip || "";
+    return index;
+  }
+
+  function setActiveSign(index) {
+    if (!signs[index] || index === activeSignIndex) {
+      return;
+    }
+
+    activeSignIndex = index;
+
+    const buttons = signsPanel.querySelectorAll(".sign-button");
+
+    buttons.forEach(function (button, buttonIndex) {
+      const isActive = buttonIndex === index;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", isActive ? "true" : "false");
+    });
+
+    if (currentSign) {
+      currentSign.textContent = getSignText(signs[index]);
+    }
+
+    if (currentSignIcon) {
+      currentSignIcon.textContent = signs[index].icon || "•";
+      currentSignIcon.classList.toggle("has-icon", Boolean(signs[index].icon));
     }
   }
 
@@ -134,7 +195,7 @@
     const button = document.createElement("button");
     button.type = "button";
     button.className = "sign-button";
-    button.textContent = `${sign.icon || ""} ${sign.chip || sign.label || "Sign"}`.trim();
+    button.textContent = getButtonText(sign);
     button.setAttribute("aria-pressed", index === 0 ? "true" : "false");
 
     if (index === 0) {
@@ -144,7 +205,7 @@
     button.addEventListener("click", function () {
       player.setPlaybackRate(selectedSpeed).catch(function () {});
 
-      player.setCurrentTime(Number(sign.time) || 0)
+      player.setCurrentTime(sign.time)
         .then(function () {
           return player.play();
         })
@@ -158,6 +219,9 @@
     signsPanel.appendChild(button);
   });
 
+  // Initialize Now Practicing from the first timestamp.
+  setActiveSign(0);
+
   signsToggle.addEventListener("click", function () {
     const hidden = signsPanel.classList.toggle("is-hidden");
 
@@ -169,14 +233,20 @@
   });
 
   player.on("timeupdate", function (data) {
-    let activeIndex = 0;
+    const index = getActiveIndexFromSeconds(data.seconds || 0);
+    setActiveSign(index);
+  });
 
-    for (let i = 0; i < signs.length; i++) {
-      if (data.seconds >= (Number(signs[i].time) || 0)) {
-        activeIndex = i;
-      }
+  player.on("seeked", function (data) {
+    if (data && typeof data.seconds === "number") {
+      setActiveSign(getActiveIndexFromSeconds(data.seconds));
+      return;
     }
 
-    setActiveSign(activeIndex);
+    player.getCurrentTime()
+      .then(function (seconds) {
+        setActiveSign(getActiveIndexFromSeconds(seconds || 0));
+      })
+      .catch(function () {});
   });
 })();
