@@ -1,3 +1,5 @@
+//test1
+
 :root{
   --navy:#1e3a8a;
   --navy-light:#eff6ff;
@@ -135,12 +137,12 @@
 }
 
 .sign-button:hover{
-  background:#e0ecff;
+  background:purple;
   border-color:var(--navy);
 }
 
 .sign-button.is-active{
-  background:var(--navy);
-  color:#fff;
+  background:black;
+  color:white;
   border-color:var(--navy);
 }
