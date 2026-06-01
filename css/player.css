@@ -1,4 +1,4 @@
-//test15
+//test16
 
 /* NovaSign ASL lesson player */
 /* Strong gray + blue + purple theme */
@@ -491,12 +491,6 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-}
-
-.asl-chip-toggle-count {
-  font-size: 0.9em;
-  opacity: 0.7;
-  margin-left: auto;
 }
 
 .asl-chip-toggle-icon {

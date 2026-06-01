@@ -1,4 +1,4 @@
-//test14
+//test16
 
 /* NovaSign ASL Vimeo JSON Player
    Supports:
@@ -108,11 +108,9 @@
     toggle.className = "asl-chip-toggle";
     toggle.setAttribute("aria-expanded", "false");
 
-    var countText = signs.length === 1 ? "1 sign" : signs.length + " signs";
     toggle.innerHTML =
-      '<span class="asl-chip-toggle-label">Show Signs</span>' +
-      '<span class="asl-chip-toggle-count">' + countText + '</span>' +
-      '<span class="asl-chip-toggle-icon">⌄</span>';
+    '<span class="asl-chip-toggle-label">Show Signs</span>' +
+    '<span class="asl-chip-toggle-icon">⌄</span>';
 
     var chipsWrap = document.createElement("div");
     chipsWrap.className = "routine-chip-wrap";
