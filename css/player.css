@@ -1,8 +1,8 @@
-//test17
+/* test18 */
 
 /* NovaSign ASL lesson player */
 /* Strong gray + blue + purple theme */
-/* Improved colorful sign buttons + dynamic Now Practicing JSON icon */
+/* Multiple-player safe sign buttons */
 /* Clean video-only layout when a lesson has no sign buttons */
 /* ThriveCart-safe speed pill layout */
 
@@ -260,7 +260,7 @@
   border:0;
 }
 
-/* Fallback video layout if iframe is placed directly inside .asl-player */
+/* For current simple HTML where iframe is directly inside .asl-player */
 .asl-player > iframe.vimeo-player,
 .asl-player > iframe#vimeo-player{
   display:block;
@@ -275,7 +275,7 @@
     0 0 0 4px rgba(37,99,235,.08);
 }
 
-/* Older toggle/panel support */
+/* Older signs toggle support */
 .signs-toggle{
   display:block;
   width:100%;
@@ -328,18 +328,17 @@
   display:none;
 }
 
-/* New collapsible sign button area */
-.asl-chip-panel {
-  margin-top:16px;
+/* New JS collapsible panel */
+.asl-chip-panel{
   width:100%;
+  margin-top:16px;
 }
 
-.asl-chip-toggle {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
+/* Make new collapsible button match old signs-toggle look */
+.asl-chip-toggle{
+  display:block;
   width:100%;
+  margin-top:0;
   padding:14px 16px;
   border:1px solid rgba(124,58,237,.48);
   border-radius:16px;
@@ -350,7 +349,7 @@
   font-weight:900;
   line-height:1.2;
   cursor:pointer;
-  text-align:left;
+  text-align:center;
   box-shadow:0 6px 16px rgba(15,23,42,.07);
   transition:
     background .15s ease,
@@ -360,26 +359,26 @@
     box-shadow .15s ease;
 }
 
-.asl-chip-toggle:hover {
+.asl-chip-toggle:hover{
   background:var(--asl-purple-soft);
   border-color:var(--asl-purple);
   transform:translateY(-1px);
   box-shadow:0 9px 20px rgba(124,58,237,.13);
 }
 
-.asl-chip-toggle-label {
-  display:inline-flex;
-  align-items:center;
-  min-width:0;
+.asl-chip-toggle-label{
+  display:inline;
 }
 
-.asl-chip-toggle-icon {
-  font-size:18px;
+.asl-chip-toggle-icon{
+  display:inline-block;
+  margin-left:8px;
+  font-size:16px;
   line-height:1;
-  margin-left:auto;
 }
 
-.sign-buttons-wrap {
+/* New JS button wrapper should match old signs-panel */
+.sign-buttons-wrap{
   display:flex;
   flex-wrap:wrap;
   gap:12px;
