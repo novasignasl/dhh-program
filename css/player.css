@@ -1,9 +1,9 @@
-//test16
+//test17
 
 /* NovaSign ASL lesson player */
 /* Strong gray + blue + purple theme */
-/* Improved colorful chip buttons + dynamic Now Practicing JSON icon */
-/* Clean video-only layout when a lesson has no sign chips */
+/* Improved colorful sign buttons + dynamic Now Practicing JSON icon */
+/* Clean video-only layout when a lesson has no sign buttons */
 /* ThriveCart-safe speed pill layout */
 
 :root{
@@ -197,22 +197,15 @@
   border:1px solid rgba(51,65,85,.24);
   border-radius:999px;
   padding:11px 12px;
-  background:#ffffff; /*normal white bkg*/
-  color:#000000; /*font always black*/
+  background:#ffffff;
+  color:#000000;
   cursor:pointer;
   font-size:15px;
   font-weight:900;
   line-height:1.2;
-    /* Stops Slow / Normal / Fast from wrapping */
   white-space:nowrap;
-
-  /* Stops words from breaking in the middle */
   overflow-wrap:normal;
-
-  /* Keeps text inside the pill */
   overflow:hidden;
-
-  /* Adds ... only if the screen is too small */
   text-overflow:ellipsis;
   box-shadow:0 3px 9px rgba(15,23,42,.07);
   transition:
@@ -224,23 +217,21 @@
 }
 
 .speed-btn:hover{
-  /*hover bkg*/
   background:#f1f1f1;
   border-color:rgba(37,99,235,.5);
-
-  color:000000; /*font stays black*/
+  color:#000000;
   transform:translateY(-1px);
 }
 
 .speed-btn:focus-visible,
 .signs-toggle:focus-visible,
+.asl-chip-toggle:focus-visible,
 .sign-button:focus-visible{
   outline:3px solid rgba(124,58,237,.28);
   outline-offset:2px;
 }
 
 .speed-btn.active{
-  /*background when user clicks/selects a speed*/
   background:#D3D3D3;
   border-color:transparent;
   color:#000000;
@@ -269,6 +260,22 @@
   border:0;
 }
 
+/* Fallback video layout if iframe is placed directly inside .asl-player */
+.asl-player > iframe.vimeo-player,
+.asl-player > iframe#vimeo-player{
+  display:block;
+  width:100%;
+  aspect-ratio:16 / 9;
+  border:0;
+  border-radius:18px;
+  overflow:hidden;
+  background:#000;
+  box-shadow:
+    0 14px 28px rgba(15,23,42,.18),
+    0 0 0 4px rgba(37,99,235,.08);
+}
+
+/* Older toggle/panel support */
 .signs-toggle{
   display:block;
   width:100%;
@@ -321,7 +328,77 @@
   display:none;
 }
 
-/* Attractive sign chip buttons */
+/* New collapsible sign button area */
+.asl-chip-panel {
+  margin-top:16px;
+  width:100%;
+}
+
+.asl-chip-toggle {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  width:100%;
+  padding:14px 16px;
+  border:1px solid rgba(124,58,237,.48);
+  border-radius:16px;
+  background:linear-gradient(135deg,#ffffff 0%,#f5f3ff 100%);
+  color:var(--asl-purple-dark);
+  font-family:inherit;
+  font-size:16px;
+  font-weight:900;
+  line-height:1.2;
+  cursor:pointer;
+  text-align:left;
+  box-shadow:0 6px 16px rgba(15,23,42,.07);
+  transition:
+    background .15s ease,
+    border-color .15s ease,
+    color .15s ease,
+    transform .15s ease,
+    box-shadow .15s ease;
+}
+
+.asl-chip-toggle:hover {
+  background:var(--asl-purple-soft);
+  border-color:var(--asl-purple);
+  transform:translateY(-1px);
+  box-shadow:0 9px 20px rgba(124,58,237,.13);
+}
+
+.asl-chip-toggle-label {
+  display:inline-flex;
+  align-items:center;
+  min-width:0;
+}
+
+.asl-chip-toggle-icon {
+  font-size:18px;
+  line-height:1;
+  margin-left:auto;
+}
+
+.sign-buttons-wrap {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  width:100%;
+  max-width:100%;
+  margin-top:13px;
+  padding:16px;
+  background:
+    radial-gradient(circle at top left,rgba(37,99,235,.10),transparent 34%),
+    radial-gradient(circle at bottom right,rgba(124,58,237,.11),transparent 38%),
+    rgba(255,255,255,.96);
+  border:1px solid rgba(37,99,235,.28);
+  border-radius:18px;
+  box-shadow:
+    inset 0 0 0 1px rgba(124,58,237,.08),
+    0 8px 18px rgba(15,23,42,.06);
+}
+
+/* Attractive sign buttons */
 .sign-button{
   display:inline-flex;
   align-items:center;
@@ -405,7 +482,7 @@
     flex:1 1 auto;
     width:100%;
     max-width:none;
-    grid-template-columns:repeat(3,minmax(0,1fr)); /*changed from 4 to 3 to remove medium*/
+    grid-template-columns:repeat(3,minmax(0,1fr));
   }
 }
 
@@ -449,7 +526,8 @@
     font-size:24px;
   }
 
-  .signs-panel{
+  .signs-panel,
+  .sign-buttons-wrap{
     gap:10px;
     padding:12px;
   }
@@ -474,34 +552,12 @@
     font-size:12px;
   }
 
-.asl-chip-panel {
-  margin-top: 12px;
-}
+  .asl-chip-toggle{
+    padding:12px 14px;
+    font-size:15px;
+  }
 
-.asl-chip-toggle {
-  width: 100%;
-  border: 1px solid #000;
-  border-radius: 10px;
-  background: #fff;
-  padding: 10px 12px;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.asl-chip-toggle-icon {
-  font-size: 1.1em;
-}
-
-.routine-chip-wrap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-}
-
+  .sign-button{
+    min-width:100%;
+  }
 }
