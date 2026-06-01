@@ -1,11 +1,13 @@
+
 //test18
+
 
 /* NovaSign ASL Vimeo JSON Player
    Supports:
    - Multiple players on one page
    - Old format: id="lessonData" and id="vimeo-player"
    - New format: class="lessonData" and class="vimeo-player"
-   - Collapsible chip buttons
+   - Collapsible sign buttons
 */
 
 (function () {
@@ -60,10 +62,10 @@
     );
   }
 
-  function formatChipText(sign) {
+  function formatSignText(sign) {
     var icon = sign.icon || "";
-    var chip = sign.chip || sign.label || "";
-    return (icon + " " + chip).trim();
+    var text = sign.chip || sign.label || "";
+    return (icon + " " + text).trim();
   }
 
   function clearExistingControls(playerWrap) {
@@ -73,12 +75,12 @@
     }
   }
 
-  function createChipButton(sign, player) {
+  function createSignButton(sign, player) {
     var button = document.createElement("button");
 
     button.type = "button";
-    button.className = "routine-chip";
-    button.textContent = formatChipText(sign);
+    button.className = "sign-button";
+    button.textContent = formatSignText(sign);
     button.setAttribute("aria-label", sign.label || sign.chip || "ASL sign");
 
     button.addEventListener("click", function () {
@@ -109,15 +111,15 @@
     toggle.setAttribute("aria-expanded", "false");
 
     toggle.innerHTML =
-    '<span class="asl-chip-toggle-label">Show Signs</span>' +
-    '<span class="asl-chip-toggle-icon">⌄</span>';
+      '<span class="asl-chip-toggle-label">Show Signs</span>' +
+      '<span class="asl-chip-toggle-icon">⌄</span>';
 
-    var chipsWrap = document.createElement("div");
-    chipsWrap.className = "routine-chip-wrap";
-    chipsWrap.hidden = true;
+    var signsWrap = document.createElement("div");
+    signsWrap.className = "sign-buttons-wrap";
+    signsWrap.hidden = true;
 
     signs.forEach(function (sign) {
-      chipsWrap.appendChild(createChipButton(sign, player));
+      signsWrap.appendChild(createSignButton(sign, player));
     });
 
     toggle.addEventListener("click", function () {
@@ -125,7 +127,7 @@
       var nextOpen = !isOpen;
 
       toggle.setAttribute("aria-expanded", String(nextOpen));
-      chipsWrap.hidden = !nextOpen;
+      signsWrap.hidden = !nextOpen;
 
       var label = toggle.querySelector(".asl-chip-toggle-label");
       var icon = toggle.querySelector(".asl-chip-toggle-icon");
@@ -140,7 +142,7 @@
     });
 
     panel.appendChild(toggle);
-    panel.appendChild(chipsWrap);
+    panel.appendChild(signsWrap);
     playerWrap.appendChild(panel);
   }
 
