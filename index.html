@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NovaSign JSON Player Test</title>
+  <link rel="stylesheet" href="./assets/css/asl-player.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: Arial, sans-serif;
+      background: #f8fafc;
+    }
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>NovaSign JSON Player Test</h1>
+
+    <!-- The JSON file controls both the video and the chip button timestamps. -->
+    <div class="asl-player" data-lesson-json="./lessons/good-morning.json"></div>
+  </main>
+
+  <script src="./assets/js/asl-player-json.js"></script>
+</body>
+</html>
