@@ -1,8 +1,18 @@
-// NovaSign ASL Vimeo JSON Player - GitHub/hosting test version
-// Loads video + chip timestamp data from external JSON using data-lesson-json OR lesson="good morning".
-// Based on the existing NovaSign player pattern, but adds data-lesson-json support.
+//111 NovaSign ASL Vimeo Master JSON Player
+// ThriveCart can use:
+// <div class="asl-player" data-lesson="good morning"></div>
+// This JS loads one master JSON file: lessons.json
 
 (function () {
+  var NOVASIGN_CONFIG = {
+    // This file is resolved relative to this JS file.
+    // If JS is https://novasignasl.github.io/dhh-program/asl-player-json.js,
+    // JSON is https://novasignasl.github.io/dhh-program/lessons.json
+    masterJsonFile: "lessons.json"
+  };
+
+  var masterJsonPromise = null;
+
   function ready(fn) {
     if (document.readyState !== "loading") {
       fn();
@@ -13,11 +23,15 @@
 
   function loadScriptOnce(src) {
     return new Promise(function (resolve, reject) {
+      if (window.Vimeo && window.Vimeo.Player) {
+        resolve();
+        return;
+      }
+
       var existing = document.querySelector('script[src="' + src + '"]');
       if (existing) {
         existing.addEventListener("load", resolve);
         existing.addEventListener("error", reject);
-        if (window.Vimeo && window.Vimeo.Player) resolve();
         return;
       }
 
@@ -48,6 +62,135 @@
     }, 100);
   }
 
+  function normalizeLessonKey(value) {
+    return String(value || "")
+      .trim()
+      .toLowerCase()
+      .replace(/&/g, " and ")
+      .replace(/[^a-z0-9]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function slugifyLessonName(value) {
+    return normalizeLessonKey(value).replace(/\s+/g, "-");
+  }
+
+  function getScriptBasePath() {
+    var currentScript = document.currentScript;
+
+    if (currentScript && currentScript.src) {
+      return currentScript.src.substring(0, currentScript.src.lastIndexOf("/") + 1);
+    }
+
+    var scripts = document.querySelectorAll("script[src]");
+    for (var i = scripts.length - 1; i >= 0; i--) {
+      var src = scripts[i].src;
+      if (src.indexOf("asl-player-json.js") !== -1 || src.indexOf("asl-player") !== -1) {
+        return src.substring(0, src.lastIndexOf("/") + 1);
+      }
+    }
+
+    return "./";
+  }
+
+  function getMasterJsonUrl(playerWrap) {
+    var custom =
+      playerWrap.getAttribute("data-program-json") ||
+      playerWrap.getAttribute("program-json");
+
+    if (custom) {
+      return new URL(custom, window.location.href).href;
+    }
+
+    return new URL(NOVASIGN_CONFIG.masterJsonFile, getScriptBasePath()).href;
+  }
+
+  function fetchMasterJson(playerWrap) {
+    if (masterJsonPromise) {
+      return masterJsonPromise;
+    }
+
+    var jsonUrl = getMasterJsonUrl(playerWrap);
+
+    masterJsonPromise = fetch(jsonUrl, { cache: "no-cache" })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("HTTP " + response.status + " while loading " + jsonUrl);
+        }
+        return response.json();
+      })
+      .catch(function (error) {
+        console.error("NovaSign Player: Could not load master lessons JSON.", error);
+        return { lessons: {} };
+      });
+
+    return masterJsonPromise;
+  }
+
+  function getInlineLessonData(playerWrap) {
+    var dataScript =
+      playerWrap.querySelector(".lessonData") ||
+      playerWrap.querySelector("#lessonData");
+
+    if (!dataScript) return null;
+
+    try {
+      return JSON.parse(dataScript.textContent.trim());
+    } catch (error) {
+      console.error("NovaSign Player: Invalid inline lessonData JSON.", error);
+      return { signs: [] };
+    }
+  }
+
+  function getLessonName(playerWrap) {
+    return (
+      playerWrap.getAttribute("data-lesson") ||
+      playerWrap.getAttribute("lesson") ||
+      ""
+    );
+  }
+
+  function pickLessonFromProgram(programData, lessonName) {
+    var lessons = programData.lessons || {};
+    var wanted = normalizeLessonKey(lessonName);
+    var wantedSlug = slugifyLessonName(lessonName);
+
+    if (!wanted) {
+      console.warn("NovaSign Player: No lesson name found. Add data-lesson=\"lesson name\".");
+      return { signs: [] };
+    }
+
+    // Direct lookup first
+    if (lessons[lessonName]) return lessons[lessonName];
+    if (lessons[wanted]) return lessons[wanted];
+    if (lessons[wantedSlug]) return lessons[wantedSlug];
+
+    // Flexible lookup next
+    for (var key in lessons) {
+      if (!Object.prototype.hasOwnProperty.call(lessons, key)) continue;
+
+      var normalizedKey = normalizeLessonKey(key);
+      var slugKey = slugifyLessonName(key);
+
+      if (normalizedKey === wanted || slugKey === wantedSlug) {
+        return lessons[key];
+      }
+    }
+
+    console.warn("NovaSign Player: Lesson not found in lessons.json:", lessonName);
+    return { signs: [] };
+  }
+
+  function fetchLessonData(playerWrap) {
+    var inlineData = getInlineLessonData(playerWrap);
+    if (inlineData) return Promise.resolve(inlineData);
+
+    return fetchMasterJson(playerWrap).then(function (programData) {
+      return pickLessonFromProgram(programData, getLessonName(playerWrap));
+    });
+  }
+
   function buildVimeoUrl(video) {
     if (video && video.url) {
       return video.url;
@@ -58,7 +201,7 @@
     }
 
     var url = "https://player.vimeo.com/video/" + encodeURIComponent(video.id);
-    var params = video.params || {};
+    var params = Object.assign({}, video.params || {});
 
     if (video.hash) {
       params.h = video.hash;
@@ -71,104 +214,6 @@
       .join("&");
 
     return query ? url + "?" + query : url;
-  }
-
-  function slugifyLessonName(name) {
-    return String(name || "")
-      .trim()
-      .toLowerCase()
-      .replace(/&/g, " and ")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-  }
-
-  function getScriptBasePath() {
-    var currentScript = document.currentScript;
-
-    if (currentScript && currentScript.src) {
-      return currentScript.src.substring(0, currentScript.src.lastIndexOf("/") + 1);
-    }
-
-    var scripts = document.querySelectorAll("script[src]");
-
-    for (var i = scripts.length - 1; i >= 0; i--) {
-      var src = scripts[i].src;
-
-      if (src.indexOf("asl-player-json.js") !== -1) {
-        return src.substring(0, src.lastIndexOf("/") + 1);
-      }
-    }
-
-    return window.location.href;
-  }
-
-  function getLessonJsonUrl(playerWrap) {
-    var directJson = playerWrap.getAttribute("data-lesson-json");
-
-    if (directJson) {
-      return directJson;
-    }
-
-    var lessonName =
-      playerWrap.getAttribute("data-lesson") ||
-      playerWrap.getAttribute("lesson");
-
-    if (!lessonName) {
-      return "";
-    }
-
-    var slug = slugifyLessonName(lessonName);
-    var fileName = slug + ".json";
-    var scriptBasePath = getScriptBasePath();
-
-    // Example:
-    // JS file: https://novasignasl.github.io/dhh-program/asl-player-json.js
-    // lesson="good morning"
-    // JSON: https://novasignasl.github.io/dhh-program/lessons/good-morning.json
-    return new URL("lessons/" + fileName, scriptBasePath).href;
-  }
-
-  function getLessonDataFromScript(playerWrap) {
-    var dataScript =
-      playerWrap.querySelector(".lessonData") ||
-      playerWrap.querySelector("#lessonData");
-
-    if (!dataScript) {
-      return null;
-    }
-
-    try {
-      return JSON.parse(dataScript.textContent.trim());
-    } catch (error) {
-      console.error("NovaSign Player: Invalid inline lessonData JSON.", error);
-      return { signs: [] };
-    }
-  }
-
-  function fetchLessonData(playerWrap) {
-    var inlineData = getLessonDataFromScript(playerWrap);
-    var jsonUrl = getLessonJsonUrl(playerWrap);
-
-    if (inlineData) {
-      return Promise.resolve(inlineData);
-    }
-
-    if (!jsonUrl) {
-      console.warn("NovaSign Player: No lesson, data-lesson, or data-lesson-json attribute found.");
-      return Promise.resolve({ signs: [] });
-    }
-
-    return fetch(jsonUrl, { cache: "no-cache" })
-      .then(function (response) {
-        if (!response.ok) {
-          throw new Error("HTTP " + response.status + " while loading " + jsonUrl);
-        }
-        return response.json();
-      })
-      .catch(function (error) {
-        console.error("NovaSign Player: Could not load lesson JSON.", error);
-        return { signs: [] };
-      });
   }
 
   function getIframe(playerWrap) {
@@ -186,7 +231,7 @@
     var videoUrl = buildVimeoUrl(lessonData.video);
 
     if (!videoUrl) {
-      console.warn("NovaSign Player: No Vimeo video URL or video id found in lesson JSON.");
+      console.warn("NovaSign Player: No Vimeo video URL or video id found in selected lesson.");
       return null;
     }
 
@@ -286,13 +331,11 @@
     var speedPills = document.createElement("div");
     speedPills.className = "speed-pills";
 
-    var speeds = [
+    [
       { label: "Slow", rate: 0.75 },
       { label: "Normal", rate: 1 },
       { label: "Fast", rate: 1.25 }
-    ];
-
-    speeds.forEach(function (speed) {
+    ].forEach(function (speed) {
       var button = document.createElement("button");
       button.type = "button";
       button.className = "speed-btn";
