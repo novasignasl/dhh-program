@@ -40,7 +40,29 @@
       "title": "Bathroom",
       "vimeoId": "1197616213",
       "hash": "47a6c62a75",
-      "chips": []
+      "chips": [
+      { "time": 0, "icon": "🚽", "chip": "Need Bathroom", "label": "Need Bathroom" },
+      { "time": 36, "icon": "🧷", "chip": "Diapers", "label": "Diapers" },
+      { "time": 67, "icon": "👶", "chip": "Change Diapers", "label": "Change Diapers" },
+      { "time": 105, "icon": "🪑", "chip": "Sit", "label": "Sit" },
+      { "time": 138, "icon": "1️⃣", "chip": "Number 1", "label": "Number 1" },
+      { "time": 165, "icon": "2️⃣", "chip": "Number 2", "label": "Number 2" },
+      { "time": 186, "icon": "💧", "chip": "Pee", "label": "Pee" },
+      { "time": 231, "icon": "🙋", "chip": "Need Help", "label": "Need Help" },
+      { "time": 260, "icon": "👨‍👩‍👧", "chip": "Go With You", "label": "Go With You" },
+      { "time": 280, "icon": "✅", "chip": "Finished", "label": "Finished" },
+      { "time": 296, "icon": "🧻", "chip": "Wipe", "label": "Wipe" },
+      { "time": 320, "icon": "🚽", "chip": "Flush", "label": "Flush" },
+      { "time": 347, "icon": "😊", "chip": "Feel Better", "label": "Feel Better" },
+      { "time": 382, "icon": "🧼", "chip": "Wash Hands", "label": "Wash Hands" },
+      { "time": 405, "icon": "🎉", "chip": "All Done", "label": "All Done" },
+      { "time": 422, "icon": "⏳", "chip": "Hold Bathroom", "label": "Hold Bathroom" },
+      { "time": 466, "icon": "⚠️", "chip": "Don’t Hold", "label": "Don’t Hold" },
+      { "time": 491, "icon": "😣", "chip": "Constipated", "label": "Constipated" },
+      { "time": 520, "icon": "😳", "chip": "Peed Yourself", "label": "Peed Yourself" },
+      { "time": 550, "icon": "💙", "chip": "It’s OK", "label": "It’s OK" }
+      ]
+
     },
     "car-ride": {
       "title": "Car Ride",
@@ -298,25 +320,103 @@
       "title": "5_After Playtime",
       "vimeoId": "1197614955",
       "hash": "88e4aad6b6",
-      "chips": []
+      "chips": [
+      { "time": 0, "icon": "✅", "chip": "Finished", "label": "Finished" },
+      { "time": 33, "icon": "💬", "chip": "Tell Me About This", "label": "Tell Me About This" },
+      { "time": 84, "icon": "🌟", "chip": "Looks Wonderful", "label": "Looks Wonderful" },
+      { "time": 111, "icon": "💪", "chip": "You Worked Hard", "label": "You Worked Hard" },
+      { "time": 162, "icon": "😲", "chip": "Wow!", "label": "Wow!" },
+      { "time": 180, "icon": "🤯", "chip": "WOW!!", "label": "WOW!!" },
+      { "time": 191, "icon": "❤️", "chip": "I Love It!", "label": "I Love It!" },
+      { "time": 216, "icon": "👏", "chip": "Praising Your Child", "label": "Praising Your Child" },
+      { "time": 228, "icon": "🧹", "chip": "Clean Up", "label": "Clean Up" }
+      ]
+
     },
     "5-3-food-vocabulary": {
       "title": "5_3. Food Vocabulary",
       "vimeoId": "1197614795",
       "hash": "cb21d5ec49",
-      "chips": []
+      "chips": [
+      { "time": 0, "icon": "🍽️", "chip": "Plate", "label": "Plate" },
+      { "time": 12, "icon": "🥣", "chip": "Bowl", "label": "Bowl" },
+      { "time": 28, "icon": "🥄", "chip": "Spoon", "label": "Spoon" },
+      { "time": 55, "icon": "🍴", "chip": "Fork", "label": "Fork" },
+      { "time": 74, "icon": "🧻", "chip": "Napkin", "label": "Napkin" },
+      { "time": 96, "icon": "🔥", "chip": "Food is Hot", "label": "Food is Hot" },
+      { "time": 139, "icon": "👌", "chip": "Food is OK", "label": "Food is OK" },
+      { "time": 151, "icon": "🧊", "chip": "Cold", "label": "Cold" },
+      { "time": 180, "icon": "😊", "chip": "Warm", "label": "Warm" },
+      { "time": 211, "icon": "🍋", "chip": "Sour", "label": "Sour" },
+      { "time": 242, "icon": "🌶️", "chip": "Spicy", "label": "Spicy" },
+      { "time": 280, "icon": "🍎", "chip": "Apple", "label": "Apple" },
+      { "time": 303, "icon": "🍌", "chip": "Banana", "label": "Banana" },
+      { "time": 339, "icon": "🍓", "chip": "Strawberry", "label": "Strawberry" },
+      { "time": 373, "icon": "🫐", "chip": "Blueberry", "label": "Blueberry" },
+      { "time": 418, "icon": "🍞", "chip": "Bread", "label": "Bread" },
+      { "time": 448, "icon": "🍞", "chip": "Toast", "label": "Toast" },
+      { "time": 478, "icon": "🧀", "chip": "Cheese", "label": "Cheese" },
+      { "time": 506, "icon": "🍗", "chip": "Chicken", "label": "Chicken" },
+      { "time": 526, "icon": "🍗", "chip": "Chicken Nuggets", "label": "Chicken Nuggets" },
+      { "time": 535, "icon": "🍗", "chip": "Chicken Tenders/Strips", "label": "Chicken Tenders/Strips" },
+      { "time": 549, "icon": "🥕", "chip": "Carrots", "label": "Carrots" },
+      { "time": 575, "icon": "🍪", "chip": "Cookie", "label": "Cookie" },
+      { "time": 600, "icon": "🥔", "chip": "Potato", "label": "Potato" },
+      { "time": 627, "icon": "🍠", "chip": "Sweet Potato", "label": "Sweet Potato" },
+      { "time": 644, "icon": "🥚", "chip": "Eggs", "label": "Eggs" },
+      { "time": 674, "icon": "🥞", "chip": "Pancakes", "label": "Pancakes" },
+      { "time": 701, "icon": "🥤", "chip": "Smoothie", "label": "Smoothie" }
+      ]
+
     },
     "5-2-drinking": {
       "title": "5_2. Drinking",
       "vimeoId": "1197614717",
       "hash": "84b60c717f",
-      "chips": []
+      "chips": [
+        { "time": 0, "icon": "🥛", "chip": "Milk", "label": "Milk" },
+        { "time": 8, "icon": "🍼", "chip": "Bottle", "label": "Bottle" },
+        { "time": 18, "icon": "🥤", "chip": "Thirsty", "label": "Thirsty" },
+        { "time": 33, "icon": "❓", "chip": "Want a Drink?", "label": "Want a Drink?" },
+        { "time": 43, "icon": "💧", "chip": "Water", "label": "Water" },
+        { "time": 63, "icon": "🥤", "chip": "Cup", "label": "Cup" },
+        { "time": 79, "icon": "🚰", "chip": "Filling Up Cup", "label": "Filling Up Cup" },
+        { "time": 92, "icon": "🥤", "chip": "Straw", "label": "Straw" },
+        { "time": 103, "icon": "🌊", "chip": "Pour", "label": "Pour" },
+        { "time": 117, "icon": "🥤", "chip": "You Thirsty?", "label": "You Thirsty?" },
+        { "time": 122, "icon": "💧", "chip": "Want a Cup of Water?", "label": "Want a Cup of Water?" }
+        ]
+
     },
     "5-1-toys-play": {
       "title": "5_1. Toys & Play",
       "vimeoId": "1197614716",
       "hash": "584a269ccd",
-      "chips": []
+      "chips": [
+        { "time": 0, "icon": "🎮", "chip": "Play", "label": "Play" },
+        { "time": 14, "icon": "🚶", "chip": "We're Going to", "label": "We're Going to" },
+        { "time": 31, "icon": "❓", "chip": "Wanna Go to?", "label": "Wanna Go to?" },
+        { "time": 46, "icon": "🛝", "chip": "Playground", "label": "Playground" },
+        { "time": 63, "icon": "🔁", "chip": "Again", "label": "Again" },
+        { "time": 84, "icon": "😨", "chip": "Scared", "label": "Scared" },
+        { "time": 95, "icon": "🙋", "chip": "Want Help?", "label": "Want Help?" },
+        { "time": 115, "icon": "👨‍👩‍👧", "chip": "Come With You?", "label": "Come With You?" },
+        { "time": 136, "icon": "✅", "chip": "Go Ahead", "label": "Go Ahead" },
+        { "time": 152, "icon": "🛝", "chip": "Slide", "label": "Slide" },
+        { "time": 163, "icon": "🌳", "chip": "Swing", "label": "Swing" },
+        { "time": 180, "icon": "🧗", "chip": "Climb", "label": "Climb" },
+        { "time": 188, "icon": "🪜", "chip": "Steps", "label": "Steps" },
+        { "time": 197, "icon": "😄", "chip": "Fun", "label": "Fun" },
+        { "time": 214, "icon": "🏃", "chip": "Run", "label": "Run" },
+        { "time": 235, "icon": "🏠", "chip": "Time to Go Home", "label": "Time to Go Home" },
+        { "time": 257, "icon": "💧", "chip": "Drink Water", "label": "Drink Water" },
+        { "time": 276, "icon": "👋", "chip": "Come Here", "label": "Come Here" },
+        { "time": 281, "icon": "🚶", "chip": "Let’s Go", "label": "Let’s Go" },
+        { "time": 297, "icon": "⛑️", "chip": "Helmet", "label": "Helmet" },
+        { "time": 307, "icon": "🚲", "chip": "Bicycle", "label": "Bicycle" },
+        { "time": 319, "icon": "🛴", "chip": "Scooter", "label": "Scooter" }
+        ]
+
     },
     "5-3-art-crafts": {
       "title": "5_3. Art & Crafts",
@@ -328,7 +428,40 @@
       "title": "5_1. Getting Baby Ready to Eat",
       "vimeoId": "1197614713",
       "hash": "055f630828",
-      "chips": []
+      "chips": [
+        { "time": 0, "icon": "🍽️", "chip": "Ready to Eat?", "label": "Ready to Eat?" },
+        { "time": 35, "icon": "😋", "chip": "Hungry?", "label": "Hungry?" },
+        { "time": 55, "icon": "🪑", "chip": "Get in Chair", "label": "Get in Chair" },
+        { "time": 73, "icon": "🧷", "chip": "Bib On", "label": "Bib On" },
+        { "time": 90, "icon": "👤", "chip": "I Am Eating", "label": "I Am Eating" },
+        { "time": 97, "icon": "👶", "chip": "You Are Eating", "label": "You Are Eating" },
+        { "time": 118, "icon": "👨‍👩‍👧", "chip": "We Are Eating", "label": "We Are Eating" },
+        { "time": 130, "icon": "🍲", "chip": "Food", "label": "Food" },
+        { "time": 142, "icon": "🥄", "chip": "Scoop", "label": "Scoop" },
+        { "time": 167, "icon": "🥣", "chip": "Stir", "label": "Stir" },
+        { "time": 176, "icon": "🦷", "chip": "Chew", "label": "Chew" },
+        { "time": 214, "icon": "⬇️", "chip": "Swallow", "label": "Swallow" },
+        { "time": 245, "icon": "👍", "chip": "Like", "label": "Like" },
+        { "time": 275, "icon": "👎", "chip": "Don’t Like", "label": "Don’t Like" },
+        { "time": 313, "icon": "😋", "chip": "Delicious", "label": "Delicious" },
+        { "time": 340, "icon": "⭐", "chip": "Favorite", "label": "Favorite" },
+        { "time": 352, "icon": "❓", "chip": "Favorite Food?", "label": "Favorite Food?" },
+        { "time": 357, "icon": "🍽️", "chip": "My Favorite", "label": "My Favorite" },
+        { "time": 372, "icon": "➕", "chip": "Want More?", "label": "Want More?" },
+        { "time": 409, "icon": "➕", "chip": "Use More", "label": "Use More" },
+        { "time": 433, "icon": "✋", "chip": "Don’t Want", "label": "Don’t Want" },
+        { "time": 475, "icon": "👍", "chip": "Yes", "label": "Yes" },
+        { "time": 488, "icon": "👎", "chip": "No", "label": "No" },
+        { "time": 514, "icon": "🚫", "chip": "All Gone", "label": "All Gone" },
+        { "time": 536, "icon": "😌", "chip": "Full", "label": "Full" },
+        { "time": 556, "icon": "✅", "chip": "Finished", "label": "Finished" },
+        { "time": 576, "icon": "👌", "chip": "OK", "label": "OK" },
+        { "time": 617, "icon": "🧼", "chip": "Clean Face", "label": "Clean Face" },
+        { "time": 653, "icon": "🧷", "chip": "Bib Off", "label": "Bib Off" },
+        { "time": 680, "icon": "🧽", "chip": "Dirty", "label": "Dirty" },
+        { "time": 710, "icon": "🧼", "chip": "Wash Hands", "label": "Wash Hands" },
+        { "time": 726, "icon": "⬆️", "chip": "Out of Chair", "label": "Out of Chair" }
+        ]
     },
     "4-why": {
       "title": "4_why",
@@ -508,14 +641,44 @@
       "title": "Car Ride",
       "vimeoId": "1197199103",
       "hash": "303c3bfa84",
-      "chips": []
+      "chips": [
+      { "time": 0, "icon": "🚗", "chip": "We Are Going To", "label": "We Are Going To" },
+      { "time": 29, "icon": "🚽", "chip": "Potty Before Car", "label": "Potty Before Car" },
+      { "time": 84, "icon": "👟", "chip": "Shoes On", "label": "Shoes On" },
+      { "time": 103, "icon": "🚗", "chip": "Going to Car", "label": "Going to Car" },
+      { "time": 118, "icon": "🪑", "chip": "Carseat", "label": "Carseat" },
+      { "time": 147, "icon": "🔒", "chip": "Buckle In", "label": "Buckle In" },
+      { "time": 165, "icon": "🔓", "chip": "Unbuckle", "label": "Unbuckle" },
+
+      { "time": 174, "icon": "🙂", "chip": "You OK?", "label": "You OK?" },
+      { "time": 232, "icon": "🥵", "chip": "You Hot?", "label": "You Hot?" },
+      { "time": 248, "icon": "🥶", "chip": "You Cold?", "label": "You Cold?" },
+      { "time": 256, "icon": "🤢", "chip": "Nauseous?", "label": "Nauseous?" },
+      { "time": 280, "icon": "❓", "chip": "What’s the Matter?", "label": "What’s the Matter?" },
+      { "time": 302, "icon": "🕶️", "chip": "Want Sunglasses?", "label": "Want Sunglasses?" },
+      { "time": 321, "icon": "🩹", "chip": "Are You Hurt?", "label": "Are You Hurt?" },
+
+      { "time": 338, "icon": "🚿", "chip": "Carwash", "label": "Carwash" },
+      { "time": 354, "icon": "⏳", "chip": "Soon Arrive", "label": "Soon Arrive" },
+      { "time": 386, "icon": "📍", "chip": "We Are Here!", "label": "We Are Here!" }
+    ]
     },
     "good-morning-2": {
       "title": "Good Morning!",
       "vimeoId": "1197063183",
       "hash": "eccabbe846",
-      "chips": []
-    },
+      "chips": [
+      { "time": 0, "icon": "🌅", "chip": "Good Morning!", "label": "Good Morning!" },
+      { "time": 28, "icon": "👀", "chip": "You Are Awake", "label": "You Are Awake" },
+      { "time": 49, "icon": "☀️", "chip": "The Sun Has Risen", "label": "The Sun Has Risen" },
+      { "time": 88, "icon": "❤️", "chip": "I Love You!", "label": "I Love You!" },
+      { "time": 125, "icon": "🚽", "chip": "Need Bathroom", "label": "Need Bathroom" },
+      { "time": 152, "icon": "🧷", "chip": "Change Diaper", "label": "Change Diaper" },
+      { "time": 222, "icon": "👕", "chip": "Change Clothes", "label": "Change Clothes" },
+      { "time": 268, "icon": "🛏", "chip": "Make Bed", "label": "Make Bed" },
+      { "time": 305, "icon": "🎮", "chip": "Let’s Go Play!", "label": "Let’s Go Play!" }
+      ]
+},
     "telling-baby-who-you-are-do-this-now": {
       "title": "Telling Baby Who You Are-Do This Now",
       "vimeoId": "1197061346",
