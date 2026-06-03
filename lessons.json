@@ -1,103 +1,549 @@
 {
-  "programTitle": "NovaSign DHH Program",
-  "lessons": {
-    "good morning": {
-      "title": "Good Morning",
-      "video": {
-        "provider": "vimeo",
-        "id": "1197063183",
-        "hash": "eccabbe846",
-        "title": "NovaSign Lesson Video",
-        "params": {
-          "badge": "0",
-          "autopause": "0",
-          "player_id": "0",
-          "app_id": "58479"
-        }
-      },
-      "signs": [
-        {
-          "time": 0,
-          "icon": "🌅",
-          "chip": "Good Morning!",
-          "label": "Good Morning!"
-        },
-        {
-          "time": 28,
-          "icon": "👀",
-          "chip": "You are Awake",
-          "label": "You are Awake"
-        },
-        {
-          "time": 49,
-          "icon": "☀️",
-          "chip": "The Sun Has Risen",
-          "label": "The Sun Has Risen"
-        },
-        {
-          "time": 88,
-          "icon": "❤️",
-          "chip": "I Love You!",
-          "label": "I Love You!"
-        },
-        {
-          "time": 125,
-          "icon": "🚽",
-          "chip": "Need to go Bathroom",
-          "label": "Need to go Bathroom"
-        },
-        {
-          "time": 152,
-          "icon": "🧷",
-          "chip": "Need to Change Your Diaper",
-          "label": "Need to Change Your Diaper"
-        },
-        {
-          "time": 222,
-          "icon": "👕",
-          "chip": "Change Clothes",
-          "label": "Change Clothes"
-        },
-        {
-          "time": 268,
-          "icon": "🛏️",
-          "chip": "Make the Bed",
-          "label": "Make the Bed"
-        },
-        {
-          "time": 305,
-          "icon": "🧸",
-          "chip": "Now Let's Go Play!",
-          "label": "Now Let's Go Play!"
-        }
-      ]
+  "videos": {
+    "tv": {
+      "title": "TV",
+      "vimeoId": "1197616473",
+      "hash": "9020c434bb",
+      "chips": []
     },
-    "bedtime": {
-      "title": "Bedtime",
-      "video": {
-        "provider": "vimeo",
-        "id": "1197615143",
-        "hash": "99cd2ee3c1",
-        "title": "NovaSign Bedtime Lesson Video",
-        "params": {
-          "badge": "0",
-          "autopause": "0"
-        }
-      },
-      "signs": [
-        {
-          "time": 0,
-          "icon": "🌙",
-          "chip": "Bedtime",
-          "label": "Bedtime"
-        },
-        {
-          "time": 20,
-          "icon": "🪥",
-          "chip": "Brush Teeth",
-          "label": "Brush Teeth"
-        }
-      ]
+    "siblings": {
+      "title": "Siblings",
+      "vimeoId": "1197616439",
+      "hash": "d284870d07",
+      "chips": []
+    },
+    "reading-a-book": {
+      "title": "Reading a Book",
+      "vimeoId": "1197616410",
+      "hash": "8a26483f99",
+      "chips": []
+    },
+    "good-morning": {
+      "title": "Good Morning!",
+      "vimeoId": "1197616405",
+      "hash": "fce5536053",
+      "chips": []
+    },
+    "doctor": {
+      "title": "Doctor",
+      "vimeoId": "1197616399",
+      "hash": "56414ca213",
+      "chips": []
+    },
+    "dentist": {
+      "title": "Dentist",
+      "vimeoId": "1197616398",
+      "hash": "90ff8284b1",
+      "chips": []
+    },
+    "bathroom": {
+      "title": "Bathroom",
+      "vimeoId": "1197616213",
+      "hash": "47a6c62a75",
+      "chips": []
+    },
+    "car-ride": {
+      "title": "Car Ride",
+      "vimeoId": "1197616212",
+      "hash": "326956b9f3",
+      "chips": []
+    },
+    "audiologist": {
+      "title": "Audiologist",
+      "vimeoId": "1197616210",
+      "hash": "4441bbe8ef",
+      "chips": []
+    },
+    "around-the-house": {
+      "title": "Around the House",
+      "vimeoId": "1197616199",
+      "hash": "17214eaa01",
+      "chips": []
+    },
+    "8-where-is-the-fish": {
+      "title": "8_Where Is the Fish",
+      "vimeoId": "1197616198",
+      "hash": "50b7170f7b",
+      "chips": []
+    },
+    "8-red-light-green-light-game-how-to-play-the-rules": {
+      "title": "8_Red Light Green Light Game - How to Play & The Rules",
+      "vimeoId": "1197616196",
+      "hash": "8621b1aa86",
+      "chips": []
+    },
+    "8-music-chairs": {
+      "title": "8_Music Chairs",
+      "vimeoId": "1197616189",
+      "hash": "7c8275fbfc",
+      "chips": []
+    },
+    "8-freeze-dance": {
+      "title": "8_Freeze Dance",
+      "vimeoId": "1197616187",
+      "hash": "a1cbf413f4",
+      "chips": []
+    },
+    "8-let-s-play-a-game-duck-duck-goose": {
+      "title": "8_Let's Play a Game - Duck Duck Goose",
+      "vimeoId": "1197616186",
+      "hash": "e163e8bf78",
+      "chips": []
+    },
+    "8-freeze-dance-2": {
+      "title": "8_Freeze ⧸ Dance",
+      "vimeoId": "1197616165",
+      "hash": "6f6547125d",
+      "chips": []
+    },
+    "7-vehicles": {
+      "title": "7_Vehicles",
+      "vimeoId": "1197615932",
+      "hash": "e9b0053579",
+      "chips": []
+    },
+    "7-unsure-time-2": {
+      "title": "7_unsure-time-2",
+      "vimeoId": "1197615929",
+      "hash": "6d1afa9f2d",
+      "chips": []
+    },
+    "7-time": {
+      "title": "7_Time",
+      "vimeoId": "1197615899",
+      "hash": "a45a79bfe3",
+      "chips": []
+    },
+    "7-sick": {
+      "title": "7_Sick",
+      "vimeoId": "1197615856",
+      "hash": "12fdcb64af",
+      "chips": []
+    },
+    "7-sensory": {
+      "title": "7_Sensory",
+      "vimeoId": "1197615839",
+      "hash": "d8e31b0d61",
+      "chips": []
+    },
+    "7-possession": {
+      "title": "7_Possession",
+      "vimeoId": "1197615828",
+      "hash": "4d6579ccb1",
+      "chips": []
+    },
+    "7-pets": {
+      "title": "7_Pets",
+      "vimeoId": "1197615826",
+      "hash": "ca51c2ab5e",
+      "chips": []
+    },
+    "7-numbers": {
+      "title": "7_Numbers",
+      "vimeoId": "1197615715",
+      "hash": "3269519186",
+      "chips": []
+    },
+    "7-movement": {
+      "title": "7_Movement",
+      "vimeoId": "1197615684",
+      "hash": "ba0a65def3",
+      "chips": []
+    },
+    "7-knowledge": {
+      "title": "7_Knowledge",
+      "vimeoId": "1197615680",
+      "hash": "8adc53729c",
+      "chips": []
+    },
+    "7-insects": {
+      "title": "7_Insects",
+      "vimeoId": "1197615671",
+      "hash": "e5ad8f8d7e",
+      "chips": []
+    },
+    "7-happy-birthday-song": {
+      "title": "7_Happy Birthday Song",
+      "vimeoId": "1197615659",
+      "hash": "eb2135753a",
+      "chips": []
+    },
+    "7-family-and-people": {
+      "title": "7_Family and People",
+      "vimeoId": "1197615629",
+      "hash": "0946d99beb",
+      "chips": []
+    },
+    "7-emotions": {
+      "title": "7_Emotions",
+      "vimeoId": "1197615517",
+      "hash": "134883972a",
+      "chips": []
+    },
+    "7-emergency-vehicles": {
+      "title": "7_Emergency Vehicles",
+      "vimeoId": "1197615514",
+      "hash": "ef20d95226",
+      "chips": []
+    },
+    "7-colors": {
+      "title": "7_Colors",
+      "vimeoId": "1197615512",
+      "hash": "5eff6c8de2",
+      "chips": []
+    },
+    "7-clothes": {
+      "title": "7_Clothes",
+      "vimeoId": "1197615506",
+      "hash": "b16493e01a",
+      "chips": []
+    },
+    "7-celebrating": {
+      "title": "7_Celebrating",
+      "vimeoId": "1197615415",
+      "hash": "f3c01686ad",
+      "chips": []
+    },
+    "7-body": {
+      "title": "7_Body",
+      "vimeoId": "1197615347",
+      "hash": "cedf23e34d",
+      "chips": []
+    },
+    "7-birds": {
+      "title": "7_Birds",
+      "vimeoId": "1197615313",
+      "hash": "c8180f902b",
+      "chips": []
+    },
+    "7-animals-zoo": {
+      "title": "7_Animals-Zoo",
+      "vimeoId": "1197615298",
+      "hash": "921f156d46",
+      "chips": []
+    },
+    "7-animals-sea": {
+      "title": "7_Animals-Sea",
+      "vimeoId": "1197615297",
+      "hash": "6fae0c20cb",
+      "chips": []
+    },
+    "7-animals-farm": {
+      "title": "7_Animals-Farm",
+      "vimeoId": "1197615294",
+      "hash": "6107037e58",
+      "chips": []
+    },
+    "6-water-safety": {
+      "title": "6_Water Safety",
+      "vimeoId": "1197615291",
+      "hash": "0fb459c2a3",
+      "chips": []
+    },
+    "6-only-i-get-the-ball": {
+      "title": "6_Only I Get the Ball",
+      "vimeoId": "1197615284",
+      "hash": "f2ca1988ec",
+      "chips": []
+    },
+    "6-large-crowds": {
+      "title": "6_Large Crowds",
+      "vimeoId": "1197615271",
+      "hash": "481c11f783",
+      "chips": []
+    },
+    "6-do-not-touch": {
+      "title": "6_Do Not Touch",
+      "vimeoId": "1197615269",
+      "hash": "14f8b7f71a",
+      "chips": []
+    },
+    "6-crossing-the-street": {
+      "title": "6_Crossing the Street",
+      "vimeoId": "1197615245",
+      "hash": "10e8c24752",
+      "chips": []
+    },
+    "6-body-safety": {
+      "title": "6_Body Safety",
+      "vimeoId": "1197615195",
+      "hash": "d9d6845ac4",
+      "chips": []
+    },
+    "5-playing-with-friends": {
+      "title": "5_Playing with Friends",
+      "vimeoId": "1197615194",
+      "hash": "11ccf8522b",
+      "chips": []
+    },
+    "5-milk": {
+      "title": "5_Milk",
+      "vimeoId": "1197615155",
+      "hash": "2b5518908d",
+      "chips": []
+    },
+    "5-bedtime": {
+      "title": "5_Bedtime",
+      "vimeoId": "1197615143",
+      "hash": "99cd2ee3c1",
+      "chips": []
+    },
+    "5-bath": {
+      "title": "5_Bath",
+      "vimeoId": "1197615000",
+      "hash": "b7d6a4bf28",
+      "chips": []
+    },
+    "5-after-playtime": {
+      "title": "5_After Playtime",
+      "vimeoId": "1197614955",
+      "hash": "88e4aad6b6",
+      "chips": []
+    },
+    "5-3-food-vocabulary": {
+      "title": "5_3. Food Vocabulary",
+      "vimeoId": "1197614795",
+      "hash": "cb21d5ec49",
+      "chips": []
+    },
+    "5-2-drinking": {
+      "title": "5_2. Drinking",
+      "vimeoId": "1197614717",
+      "hash": "84b60c717f",
+      "chips": []
+    },
+    "5-1-toys-play": {
+      "title": "5_1. Toys & Play",
+      "vimeoId": "1197614716",
+      "hash": "584a269ccd",
+      "chips": []
+    },
+    "5-3-art-crafts": {
+      "title": "5_3. Art & Crafts",
+      "vimeoId": "1197614715",
+      "hash": "a0a91c1c47",
+      "chips": []
+    },
+    "5-1-getting-baby-ready-to-eat": {
+      "title": "5_1. Getting Baby Ready to Eat",
+      "vimeoId": "1197614713",
+      "hash": "055f630828",
+      "chips": []
+    },
+    "4-why": {
+      "title": "4_why",
+      "vimeoId": "1197614702",
+      "hash": "d6aca77411",
+      "chips": []
+    },
+    "4-who": {
+      "title": "4_who",
+      "vimeoId": "1197614698",
+      "hash": "1fb8104589",
+      "chips": []
+    },
+    "4-which": {
+      "title": "4_Which",
+      "vimeoId": "1197614697",
+      "hash": "ccffbb783f",
+      "chips": []
+    },
+    "4-where": {
+      "title": "4_where",
+      "vimeoId": "1197614693",
+      "hash": "1ba5c9f04e",
+      "chips": []
+    },
+    "4-when": {
+      "title": "4_when",
+      "vimeoId": "1197614688",
+      "hash": "6ec416be95",
+      "chips": []
+    },
+    "4-what": {
+      "title": "4_what",
+      "vimeoId": "1197614686",
+      "hash": "9780772dfb",
+      "chips": []
+    },
+    "4-stop-stop-it": {
+      "title": "4_Stop ⧸ Stop It",
+      "vimeoId": "1197614683",
+      "hash": "ee815137ee",
+      "chips": []
+    },
+    "4-show-me-where-what-color-big-or-small-inside-or-outside": {
+      "title": "4_Show Me. Where？ What Color？  Big or Small？ Inside or Outside？ ",
+      "vimeoId": "1197614676",
+      "hash": "9d70aaf7f0",
+      "chips": []
+    },
+    "4-inflections-hungry": {
+      "title": "4_Inflections - Hungry",
+      "vimeoId": "1197614675",
+      "hash": "d560ce4981",
+      "chips": []
+    },
+    "4-inflections": {
+      "title": "4_inflections",
+      "vimeoId": "1197614674",
+      "hash": "ec7ed91197",
+      "chips": []
+    },
+    "4-important-signs": {
+      "title": "4_Important Signs",
+      "vimeoId": "1197614672",
+      "hash": "00e4a04328",
+      "chips": []
+    },
+    "4-i-understand": {
+      "title": "4_I Understand",
+      "vimeoId": "1197614666",
+      "hash": "bb2cb3aa1d",
+      "chips": []
+    },
+    "4-i-do-not-understand": {
+      "title": "4_I Do Not Understand",
+      "vimeoId": "1197614665",
+      "hash": "790fd1c884",
+      "chips": []
+    },
+    "4-how": {
+      "title": "4_how",
+      "vimeoId": "1197614664",
+      "hash": "12bb7ada77",
+      "chips": []
+    },
+    "4-abc": {
+      "title": "4_ABC",
+      "vimeoId": "1197614663",
+      "hash": "027377e126",
+      "chips": []
+    },
+    "3-fathers-and-father-figures": {
+      "title": "3_Fathers and Father Figures",
+      "vimeoId": "1197614659",
+      "hash": "8160842150",
+      "chips": []
+    },
+    "3-playing-with-baby": {
+      "title": "3_Playing With Baby",
+      "vimeoId": "1197614658",
+      "hash": "cedee0e663",
+      "chips": []
+    },
+    "2-your-childs-name": {
+      "title": "2_Your Childs Name",
+      "vimeoId": "1197614657",
+      "hash": "0f41e540e3",
+      "chips": []
+    },
+    "2-what-in-response-to-eye-gaze": {
+      "title": "2_What？ In response to Eye Gaze",
+      "vimeoId": "1197614656",
+      "hash": "5689b8d959",
+      "chips": []
+    },
+    "2-leave-it": {
+      "title": "2_Leave it",
+      "vimeoId": "1197614647",
+      "hash": "4660fae21a",
+      "chips": []
+    },
+    "2-identifying-your-baby-s-yes": {
+      "title": "2_Identifying Your Baby's YES",
+      "vimeoId": "1197614644",
+      "hash": "a83c885508",
+      "chips": []
+    },
+    "2-identifying-baby-no": {
+      "title": "2_Identifying Baby NO",
+      "vimeoId": "1197614643",
+      "hash": "89606167b7",
+      "chips": []
+    },
+    "2-i-can-t-get-it": {
+      "title": "2_I Can't Get It",
+      "vimeoId": "1197614642",
+      "hash": "6e69ace96b",
+      "chips": []
+    },
+    "1-telling-baby-who-you-are-do-this-now": {
+      "title": "1_Telling Baby Who You Are-Do This Now",
+      "vimeoId": "1197614629",
+      "hash": "0656845e20",
+      "chips": []
+    },
+    "1-kissfist": {
+      "title": "1_kissfist",
+      "vimeoId": "1197614628",
+      "hash": "baf69a109b",
+      "chips": []
+    },
+    "1-i-love-you": {
+      "title": "1_I Love You",
+      "vimeoId": "1197614627",
+      "hash": "0cf8d14dd9",
+      "chips": []
+    },
+    "1-how-to-tell-baby-i-love-you": {
+      "title": "1_How To Tell Baby I Love You",
+      "vimeoId": "1197614626",
+      "hash": "8cf2ff1696",
+      "chips": []
+    },
+    "5-1-getting-baby-ready-to-eat-2": {
+      "title": "5_1. Getting Baby Ready to Eat",
+      "vimeoId": "1197208981",
+      "hash": "854b8f9b57",
+      "chips": []
+    },
+    "milk": {
+      "title": "Milk",
+      "vimeoId": "1197205868",
+      "hash": "50e7af9864",
+      "chips": []
+    },
+    "car-ride-2": {
+      "title": "Car Ride",
+      "vimeoId": "1197199103",
+      "hash": "303c3bfa84",
+      "chips": []
+    },
+    "good-morning-2": {
+      "title": "Good Morning!",
+      "vimeoId": "1197063183",
+      "hash": "eccabbe846",
+      "chips": []
+    },
+    "telling-baby-who-you-are-do-this-now": {
+      "title": "Telling Baby Who You Are-Do This Now",
+      "vimeoId": "1197061346",
+      "hash": "2983f29915",
+      "chips": []
+    },
+    "how-to-tell-baby-i-love-you": {
+      "title": "How To Tell Baby I Love You",
+      "vimeoId": "1197019671",
+      "hash": "3b7265e49b",
+      "chips": []
+    },
+    "bath": {
+      "title": "Bath",
+      "vimeoId": "1190358519",
+      "hash": "4639008b9d",
+      "chips": []
+    },
+    "answer-correct-cat": {
+      "title": "answer-correct-cat",
+      "vimeoId": "1179735160",
+      "hash": "c6c4991fd9",
+      "chips": []
     }
+  },
+  "_chipSchema": {
+    "label": "Text shown on the chip button",
+    "emoji": "Emoji shown before the label",
+    "start": "Timestamp in seconds"
   }
 }
