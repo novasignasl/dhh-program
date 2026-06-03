@@ -1,5 +1,5 @@
 // NovaSign ASL Vimeo JSON Player - GitHub/hosting test version
-// Loads video + chip timestamp data from external JSON.
+// Loads video + chip timestamp data from external JSON using data-lesson-json OR lesson="good morning".
 // Based on the existing NovaSign player pattern, but adds data-lesson-json support.
 
 (function () {
@@ -73,6 +73,61 @@
     return query ? url + "?" + query : url;
   }
 
+  function slugifyLessonName(name) {
+    return String(name || "")
+      .trim()
+      .toLowerCase()
+      .replace(/&/g, " and ")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  function getScriptBasePath() {
+    var currentScript = document.currentScript;
+
+    if (currentScript && currentScript.src) {
+      return currentScript.src.substring(0, currentScript.src.lastIndexOf("/") + 1);
+    }
+
+    var scripts = document.querySelectorAll("script[src]");
+
+    for (var i = scripts.length - 1; i >= 0; i--) {
+      var src = scripts[i].src;
+
+      if (src.indexOf("asl-player-json.js") !== -1) {
+        return src.substring(0, src.lastIndexOf("/") + 1);
+      }
+    }
+
+    return window.location.href;
+  }
+
+  function getLessonJsonUrl(playerWrap) {
+    var directJson = playerWrap.getAttribute("data-lesson-json");
+
+    if (directJson) {
+      return directJson;
+    }
+
+    var lessonName =
+      playerWrap.getAttribute("data-lesson") ||
+      playerWrap.getAttribute("lesson");
+
+    if (!lessonName) {
+      return "";
+    }
+
+    var slug = slugifyLessonName(lessonName);
+    var fileName = slug + ".json";
+    var scriptBasePath = getScriptBasePath();
+
+    // Example:
+    // JS file: https://novasignasl.github.io/dhh-program/asl-player-json.js
+    // lesson="good morning"
+    // JSON: https://novasignasl.github.io/dhh-program/lessons/good-morning.json
+    return new URL("lessons/" + fileName, scriptBasePath).href;
+  }
+
   function getLessonDataFromScript(playerWrap) {
     var dataScript =
       playerWrap.querySelector(".lessonData") ||
@@ -92,13 +147,14 @@
 
   function fetchLessonData(playerWrap) {
     var inlineData = getLessonDataFromScript(playerWrap);
-    var jsonUrl = playerWrap.getAttribute("data-lesson-json");
+    var jsonUrl = getLessonJsonUrl(playerWrap);
 
     if (inlineData) {
       return Promise.resolve(inlineData);
     }
 
     if (!jsonUrl) {
+      console.warn("NovaSign Player: No lesson, data-lesson, or data-lesson-json attribute found.");
       return Promise.resolve({ signs: [] });
     }
 
