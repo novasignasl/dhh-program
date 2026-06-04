@@ -85,11 +85,61 @@
         return response.json();
       })
       .catch(function (error) {
-        console.error("NovaSign Player: Could not load lesson JSON.", error);
-        return { signs: [] };
+        console.warn("NovaSign Player: fetch failed, trying JSONP fallback.", error);
+        return fetchLessonDataJsonp(jsonUrl);
       });
 
     return masterLessonPromise[jsonUrl];
+  }
+
+  function fetchLessonDataJsonp(jsonUrl) {
+    return new Promise(function (resolve, reject) {
+      var callbackName =
+        "__NovaSignLessonCallback_" +
+        String(Date.now()) +
+        "_" +
+        String(Math.floor(Math.random() * 100000));
+
+      var script = document.createElement("script");
+      var url = new URL(jsonUrl, window.location.href);
+      url.searchParams.set("callback", callbackName);
+
+      var cleanup = function () {
+        try {
+          delete window[callbackName];
+        } catch (error) {
+          window[callbackName] = undefined;
+        }
+
+        if (script.parentNode) {
+          script.parentNode.removeChild(script);
+        }
+      };
+
+      var timeout = setTimeout(function () {
+        cleanup();
+        reject(new Error("JSONP lesson load timed out."));
+      }, 10000);
+
+      window[callbackName] = function (data) {
+        clearTimeout(timeout);
+        cleanup();
+        resolve(data || { signs: [] });
+      };
+
+      script.src = url.href;
+      script.async = true;
+      script.onerror = function () {
+        clearTimeout(timeout);
+        cleanup();
+        reject(new Error("JSONP lesson script failed to load."));
+      };
+
+      document.head.appendChild(script);
+    }).catch(function (error) {
+      console.error("NovaSign Player: Could not load lesson JSON.", error);
+      return { signs: [] };
+    });
   }
 
   function buildVimeoUrl(video) {
