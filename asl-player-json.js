@@ -1,17 +1,7 @@
-//111 NovaSign ASL Vimeo Master JSON Player
-// ThriveCart can use:
-// <div class="asl-player" data-lesson="good morning"></div>
-// This JS loads one master JSON file: lessons.json
+// NovaSign ASL Vimeo Player - PHP/private JSON version
 
 (function () {
-  var NOVASIGN_CONFIG = {
-    // This file is resolved relative to this JS file.
-    // If JS is https://novasignasl.github.io/dhh-program/asl-player-json.js,
-    // JSON is https://novasignasl.github.io/dhh-program/lessons.json
-    masterJsonFile: "lessons.json"
-  };
-
-  var masterJsonPromise = null;
+  var masterLessonPromise = {};
 
   function ready(fn) {
     if (document.readyState !== "loading") {
@@ -44,24 +34,6 @@
     });
   }
 
-  function waitForVimeo(callback, attempts) {
-    attempts = attempts || 0;
-
-    if (window.Vimeo && window.Vimeo.Player) {
-      callback();
-      return;
-    }
-
-    if (attempts > 50) {
-      console.warn("NovaSign Player: Vimeo API did not load.");
-      return;
-    }
-
-    setTimeout(function () {
-      waitForVimeo(callback, attempts + 1);
-    }, 100);
-  }
-
   function normalizeLessonKey(value) {
     return String(value || "")
       .trim()
@@ -72,77 +44,6 @@
       .trim();
   }
 
-  function slugifyLessonName(value) {
-    return normalizeLessonKey(value).replace(/\s+/g, "-");
-  }
-
-  function getScriptBasePath() {
-    var currentScript = document.currentScript;
-
-    if (currentScript && currentScript.src) {
-      return currentScript.src.substring(0, currentScript.src.lastIndexOf("/") + 1);
-    }
-
-    var scripts = document.querySelectorAll("script[src]");
-    for (var i = scripts.length - 1; i >= 0; i--) {
-      var src = scripts[i].src;
-      if (src.indexOf("asl-player-json.js") !== -1 || src.indexOf("asl-player") !== -1) {
-        return src.substring(0, src.lastIndexOf("/") + 1);
-      }
-    }
-
-    return "./";
-  }
-
-  function getMasterJsonUrl(playerWrap) {
-    var custom =
-      playerWrap.getAttribute("data-program-json") ||
-      playerWrap.getAttribute("program-json");
-
-    if (custom) {
-      return new URL(custom, window.location.href).href;
-    }
-
-    return new URL(NOVASIGN_CONFIG.masterJsonFile, getScriptBasePath()).href;
-  }
-
-  function fetchMasterJson(playerWrap) {
-    if (masterJsonPromise) {
-      return masterJsonPromise;
-    }
-
-    var jsonUrl = getMasterJsonUrl(playerWrap);
-
-    masterJsonPromise = fetch(jsonUrl, { cache: "no-cache" })
-      .then(function (response) {
-        if (!response.ok) {
-          throw new Error("HTTP " + response.status + " while loading " + jsonUrl);
-        }
-        return response.json();
-      })
-      .catch(function (error) {
-        console.error("NovaSign Player: Could not load master lessons JSON.", error);
-        return { lessons: {} };
-      });
-
-    return masterJsonPromise;
-  }
-
-  function getInlineLessonData(playerWrap) {
-    var dataScript =
-      playerWrap.querySelector(".lessonData") ||
-      playerWrap.querySelector("#lessonData");
-
-    if (!dataScript) return null;
-
-    try {
-      return JSON.parse(dataScript.textContent.trim());
-    } catch (error) {
-      console.error("NovaSign Player: Invalid inline lessonData JSON.", error);
-      return { signs: [] };
-    }
-  }
-
   function getLessonName(playerWrap) {
     return (
       playerWrap.getAttribute("data-lesson") ||
@@ -151,44 +52,44 @@
     );
   }
 
-  function pickLessonFromProgram(programData, lessonName) {
-    var lessons = programData.lessons || {};
-    var wanted = normalizeLessonKey(lessonName);
-    var wantedSlug = slugifyLessonName(lessonName);
+  function getLessonApiUrl(playerWrap) {
+    var endpoint = playerWrap.getAttribute("data-lesson-api");
+    var lessonName = getLessonName(playerWrap);
 
-    if (!wanted) {
-      console.warn("NovaSign Player: No lesson name found. Add data-lesson=\"lesson name\".");
-      return { signs: [] };
+    if (!endpoint) {
+      console.warn("NovaSign Player: Add data-lesson-api to .asl-player.");
+      return "";
     }
 
-    // Direct lookup first
-    if (lessons[lessonName]) return lessons[lessonName];
-    if (lessons[wanted]) return lessons[wanted];
-    if (lessons[wantedSlug]) return lessons[wantedSlug];
-
-    // Flexible lookup next
-    for (var key in lessons) {
-      if (!Object.prototype.hasOwnProperty.call(lessons, key)) continue;
-
-      var normalizedKey = normalizeLessonKey(key);
-      var slugKey = slugifyLessonName(key);
-
-      if (normalizedKey === wanted || slugKey === wantedSlug) {
-        return lessons[key];
-      }
-    }
-
-    console.warn("NovaSign Player: Lesson not found in lessons.json:", lessonName);
-    return { signs: [] };
+    var url = new URL(endpoint, window.location.href);
+    url.searchParams.set("lesson", lessonName);
+    return url.href;
   }
 
   function fetchLessonData(playerWrap) {
-    var inlineData = getInlineLessonData(playerWrap);
-    if (inlineData) return Promise.resolve(inlineData);
+    var jsonUrl = getLessonApiUrl(playerWrap);
 
-    return fetchMasterJson(playerWrap).then(function (programData) {
-      return pickLessonFromProgram(programData, getLessonName(playerWrap));
-    });
+    if (!jsonUrl) {
+      return Promise.resolve({ signs: [] });
+    }
+
+    if (masterLessonPromise[jsonUrl]) {
+      return masterLessonPromise[jsonUrl];
+    }
+
+    masterLessonPromise[jsonUrl] = fetch(jsonUrl, { cache: "no-cache" })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("HTTP " + response.status + " while loading " + jsonUrl);
+        }
+        return response.json();
+      })
+      .catch(function (error) {
+        console.error("NovaSign Player: Could not load lesson JSON.", error);
+        return { signs: [] };
+      });
+
+    return masterLessonPromise[jsonUrl];
   }
 
   function buildVimeoUrl(video) {
@@ -266,7 +167,7 @@
   }
 
   function getSignIcon(sign) {
-    return sign.icon || "👋";
+    return sign.icon || "";
   }
 
   function clearExistingGeneratedUI(playerWrap) {
@@ -319,7 +220,7 @@
 
     var speedIcon = document.createElement("span");
     speedIcon.className = "player-icon";
-    speedIcon.textContent = "⚡";
+    speedIcon.textContent = "Speed";
 
     var speedLabel = document.createElement("span");
     speedLabel.className = "speed-label";
@@ -419,7 +320,7 @@
 
     toggle.innerHTML =
       '<span class="asl-chip-toggle-label">Show Signs</span>' +
-      '<span class="asl-chip-toggle-icon">⌄</span>';
+      '<span class="asl-chip-toggle-icon">v</span>';
 
     var signsWrap = document.createElement("div");
     signsWrap.className = "sign-buttons-wrap";
@@ -440,7 +341,7 @@
       var icon = toggle.querySelector(".asl-chip-toggle-icon");
 
       if (label) label.textContent = nextOpen ? "Hide Signs" : "Show Signs";
-      if (icon) icon.textContent = nextOpen ? "⌃" : "⌄";
+      if (icon) icon.textContent = nextOpen ? "^" : "v";
     });
 
     panel.appendChild(toggle);
@@ -519,27 +420,41 @@
       }
 
       buildTopUI(playerWrap, signs, player, iframe);
-
-      if (signs.length > 0) {
-        buildChipPanel(playerWrap, signs, player);
-        syncCurrentSignWithVideo(playerWrap, signs, player);
-      }
+      if (signs.length) buildChipPanel(playerWrap, signs, player);
+      syncCurrentSignWithVideo(playerWrap, signs, player);
     });
   }
 
   function initAllPlayers() {
-    document.querySelectorAll(".asl-player").forEach(function (playerWrap) {
-      initPlayer(playerWrap);
-    });
+    document.querySelectorAll(".asl-player").forEach(initPlayer);
   }
 
   ready(function () {
-    loadScriptOnce("https://player.vimeo.com/api/player.js")
-      .then(function () {
-        waitForVimeo(initAllPlayers);
-      })
-      .catch(function () {
-        console.warn("NovaSign Player: Could not load Vimeo API script.");
-      });
+    loadScriptOnce("https://player.vimeo.com/api/player.js").then(function () {
+      initAllPlayers();
+
+      // ThriveCart can inject HTML blocks after the page has already loaded.
+      setTimeout(initAllPlayers, 300);
+      setTimeout(initAllPlayers, 1000);
+      setTimeout(initAllPlayers, 2500);
+
+      if (window.MutationObserver && document.body) {
+        var observer = new MutationObserver(function () {
+          initAllPlayers();
+        });
+
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+      }
+    });
   });
+
+  window.NovaSignInitPlayers = function () {
+    document.querySelectorAll(".asl-player").forEach(function (playerWrap) {
+      playerWrap.dataset.novasignInitialized = "false";
+      initPlayer(playerWrap);
+    });
+  };
 })();
